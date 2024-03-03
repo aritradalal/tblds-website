@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import http from 'http';
 import postgres from 'postgres';
 import fs from 'fs';
+import path from 'path';
 
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
@@ -9,7 +10,8 @@ const server = http.createServer((req, res) => {
         case 'GET':
             switch(req.url) {
                 case '/':
-                    const filePath = path.join(__dirname, 'html', 'index.html', (err, data) => {
+                    const filePath = path.join(__dirname, 'html', 'index.html');
+                    fs.readFile(filePath, (err, data) => {
                         if(err) {
                             res.writeHead(500, {'Content-Type': 'text/plain'});
                             res.end('Internal Server Error');
