@@ -4,25 +4,37 @@ import postgres from 'postgres';
 import fs from 'fs';
 import path from 'path';
 
+const html = 'html';
+
+function readFile(urlPath, callback) {
+    fs.readFile(path.join(html, urlPath), (err, data) => {
+        if(err) {
+            callback(err);
+        } else {
+            callback(null, data);
+        }
+    });
+}
+
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
     switch (req.method) {
         case 'GET':
             switch(req.url) {
                 case '/':
-                    const filePath = path.join('html', 'index.html');
-                    fs.readFile(filePath, (err, data) => {
+                    readFile('index.html', (err, data) => {
                         if(err) {
-                            res.writeHead(500, {'Content-Type': 'text/plain'});
+                            res.writeHead(500, { 'Content-Type': 'text/plain'});
                             res.end('Internal Server Error');
                         } else {
-                            res.writeHead(200, {'Content-Type': 'text/html'});
+                            res.writeHead(200, { 'Content-Type': 'text/html'});
                             res.end(data);
                         }
                     });
                     break;
                 default:
-                    res.end('Not Found');
+                    res.writeHead(404, { 'Content-Type': 'text/plain'});
+                    res.end('File Not Found');
                     break;
             }
             break;
