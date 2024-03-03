@@ -1,0 +1,88 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: rgba(0,0,0,1);
+}
+
+header {
+    order: 1;
+    flex: 0 0 auto;
+    min-height: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+}
+
+header > #account {
+    /* margin-left: auto; */
+    margin: 10px;
+}
+
+a#loginButton {
+    background-image: url('/images/eve-sso-login-black-small.png');
+    height: 30px;
+    width: 195px;
+    display: block;
+}
+
+a#loginButton:hover {
+    background-image: url('/images/eve-sso-login-white-small.png');
+}
+
+a#loginButton:active {
+    background-image: url('/images/eve-sso-login-white-small.png');
+    filter: brightness(0.6);
+}
+
+img#accountSmallPic {
+    height: 32px;
+    border-radius: 50%;
+    margin: 8px 15px;
+}
+
+span#loginName {
+    font-size: medium;
+    color: white;
+}
+
+span#accountLogout {
+    font-size:small;
+    color: white;
+    text-decoration: underline;
+}
+
+main {
+    order: 2;
+    flex: 1 0 auto;
+    flex-direction: column;
+}
+
+footer {
+    order: 3;
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    color: rgba(255,255,255,1);
+    font-size: 12px;
+    padding: 10px 20px;
+}
+
+span#footer_killmails {
+    display: flex;
+    flex-grow: 1;
+    justify-content: right;;
+}
+
+footer a {
+    color: rgba(255,255,255,1);
+    text-decoration: underline;
+}
+
+footer a:visited {
+    color: rgba(255,255,255,1);
+}
