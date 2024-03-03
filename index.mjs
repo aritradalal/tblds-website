@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
         case 'GET':
             switch(req.url) {
                 case '/':
-                    const filePath = path.join(__dirname, 'html', 'index.html');
+                    const filePath = path.join('html', 'index.html');
                     fs.readFile(filePath, (err, data) => {
                         if(err) {
                             res.writeHead(500, {'Content-Type': 'text/plain'});
