@@ -32,7 +32,7 @@ function readFile(urlPath, callback) {
 
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
-    console.log('Requested URL Path: ', req.url.pathname);
+    console.log('Requested URL Path: ', req.url);
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Works');
 });
