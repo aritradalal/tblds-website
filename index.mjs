@@ -32,59 +32,9 @@ function readFile(urlPath, callback) {
 
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
-    console.log(req.url);
-    switch (req.method) {
-        case 'GET':
-            if(req.url === '/') {
-                readEJSFile('index.html', (err, data) => {
-                    if(err) {
-                        res.writeHead(500, { 'Content-Type': 'text/plain' });
-                        res.end('Internal Server Error');
-                    } else {
-                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                        res.end(data);
-                    }
-                });
-            } else if(req.url.startsWith('/css')) {
-                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
-                    if(err) {
-                        res.writeHead(404, { 'Content-Type': 'text/plain' });
-                        res.end('Not Found');
-                    } else {
-                        res.writeHead(200, { 'Content-Type': 'text/css' });
-                        res.end(data)
-                    }
-                })
-            } else if(req.url.startsWith('/scripts')) {
-                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
-                    if(err) {
-                        res.writeHead(404, { 'Content-Type': 'text/plain' });
-                        res.end('Not Found');
-                    } else {
-                        res.writeHead(200, { 'Content-Type': 'text/javascript' });
-                        res.end(data)
-                    }
-                })
-            } else if(req.url.startsWith('/images')) {
-                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
-                    if(err) {
-                        res.writeHead(404, { 'Content-Type': 'text/plain' });
-                        res.end('Not Found');
-                    } else {
-                        res.writeHead(200, { 'Content-Type': mime.lookup(req.url.pathname) });
-                        res.end(data)
-                    }
-                }) 
-            } else if(req.url.startsWith('/')) {
-            } else {}
-            break;
-        case 'POST':
-            res.end('POST');
-            break;
-        default:
-            res.writeHead(405)
-            break;
-    }
+    console.log('Requested URL Path: ', req.url.pathname);
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Works');
 });
 
 server.listen(80, () => { console.log('Server started at ', new Date().toISOString()) });
