@@ -32,6 +32,7 @@ function readFile(urlPath, callback) {
 
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
+    console.log(req.url);
     switch (req.method) {
         case 'GET':
             if(req.url === '/') {
