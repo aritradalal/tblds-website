@@ -35,7 +35,7 @@ const server = http.createServer((req, res) => {
     switch(req.method) {
         case 'GET':
             if(req.url === '/') {
-                readEJSFile('index.ejs', (err, data) => {
+                readEJSFile('index.html', (err, data) => {
                     if(err) {
                         res.writeHead(500, {'Content-Type': 'text/plain'});
                         res.end('500 Internal Server Error');
