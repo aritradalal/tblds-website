@@ -32,9 +32,34 @@ function readFile(urlPath, callback) {
 
 // Generate a http server that serves get and post requests
 const server = http.createServer((req, res) => {
-    console.log('Requested URL Path: ', req.url);
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Works');
+    switch(req.method) {
+        case 'GET':
+            if(req.url === '/') {
+                readEJSFile('index.ejs', (err, data) => {
+                    if(err) {
+                        res.writeHead(500, {'Content-Type': 'text/plain'});
+                        res.end('500 Internal Server Error');
+                    } else {
+                        res.writeHead(200, {'Content-Type': 'text/html'});
+                        res.end(data);
+                    }
+                });
+            } else {
+                readFile(req.url, (err, data) => {
+                    if(err) {
+                        res.writeHead(404, {'Content-Type': 'text/plain'});
+                        res.end('404 Not Found');
+                    } else {
+                        res.writeHead(200, {'Content-Type': mime.getType(req.url)});
+                        res.end(data);
+                    }
+                });
+            }
+            break;
+        default:
+            res.writeHead(405, {'Content-Type': 'text/plain'});
+            res.end('405 Method Not Allowed');
+    }
 });
 
 server.listen(80, () => { console.log('Server started at ', new Date().toISOString()) });
