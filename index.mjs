@@ -86,4 +86,4 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(80, () => { console.log('Server started at ', Date.now().toISOString()) })
+server.listen(80, () => { console.log('Server started at ', new Date().toISOString()) });
