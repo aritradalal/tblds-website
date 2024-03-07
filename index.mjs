@@ -14,7 +14,7 @@ function readEJSFile(urlPath, callback) {
         if(err) {
             callback(err);
         } else {
-            const rendered = ejs.render(data.toString());
+            const rendered = ejs.render(data);
             callback(null, rendered);
         }
     });
@@ -86,4 +86,4 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(80, () => { console.log('Server started at ', Date.now()) })
+server.listen(80, () => { console.log('Server started at ', Date.now().toISOString()) })
