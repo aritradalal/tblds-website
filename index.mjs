@@ -14,7 +14,7 @@ function readEJSFile(urlPath, callback) {
         if(err) {
             callback(err);
         } else {
-            const rendered = ejs.render(data);
+            const rendered = ejs.render(data.toString());
             callback(null, rendered);
         }
     });
@@ -44,8 +44,8 @@ const server = http.createServer((req, res) => {
                         res.end(data);
                     }
                 });
-            } else if(req.url.startWith('/css')) {
-                readFile(req.url.pathname.replace("/^\//g, ''"), (err, data) => {
+            } else if(req.url.startsWith('/css')) {
+                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
                     if(err) {
                         res.writeHead(404, { 'Content-Type': 'text/plain' });
                         res.end('Not Found');
@@ -54,8 +54,8 @@ const server = http.createServer((req, res) => {
                         res.end(data)
                     }
                 })
-            } else if(req.url.startWith('/scripts')) {
-                readFile(req.url.pathname.replace("/^\//g, ''"), (err, data) => {
+            } else if(req.url.startsWith('/scripts')) {
+                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
                     if(err) {
                         res.writeHead(404, { 'Content-Type': 'text/plain' });
                         res.end('Not Found');
@@ -64,13 +64,13 @@ const server = http.createServer((req, res) => {
                         res.end(data)
                     }
                 })
-            } else if(req.url.startWith('/images')) {
-                readFile(req.url.pathname.replace("/^\//g, ''"), (err, data) => {
+            } else if(req.url.startsWith('/images')) {
+                readFile(req.url.pathname.replace(`/^\//g`, `''`), (err, data) => {
                     if(err) {
                         res.writeHead(404, { 'Content-Type': 'text/plain' });
                         res.end('Not Found');
                     } else {
-                        res.writeHead(200, { 'Content-Type': mime.getExtension(req.url.pathname) });
+                        res.writeHead(200, { 'Content-Type': mime.lookup(req.url.pathname) });
                         res.end(data)
                     }
                 }) 
